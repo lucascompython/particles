@@ -2,6 +2,7 @@ mod particle;
 mod raylib;
 
 use clap::Parser;
+use std::ffi::CString;
 
 #[derive(Parser)]
 #[clap(
@@ -171,8 +172,10 @@ fn main() {
             }
 
             if !args.no_particle_count {
+                let text = CString::new(format!("Particles: {}", particle_count)).unwrap();
+                let text_ptr = text.as_ptr();
                 raylib::DrawText(
-                    format!("Particles: {}", particle_count).as_bytes().as_ptr() as *const i8,
+                    text_ptr,
                     10,
                     30,
                     20,
