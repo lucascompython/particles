@@ -1,1 +1,6 @@
 /target
+
+raylib/
+build/
+
+*.zst
