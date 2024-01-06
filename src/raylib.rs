@@ -19,6 +19,7 @@ extern "C" {
     pub fn GetScreenHeight() -> i32;
     pub fn DrawText(text: *const i8, x: i32, y: i32, font_size: i32, color: Color);
     pub fn IsKeyDown(key: i32) -> bool;
+    pub fn IsMouseButtonPressed(button: i32) -> bool;
 
 }
 

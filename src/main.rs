@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 mod particle;
 mod raylib;
 
@@ -11,7 +12,7 @@ use std::ffi::CString;
     about = r#"Raylib Particle Attraction/Repulsion
 Keybindings:
     R: Reset Particles
-    Space: Toggle Attraction/Repulsion
+    Space/M1 Click: Toggle Attraction/Repulsion
     B: Toggle Screen Border Collisions
     Arrow Keys (Up/Down/Left/Right): Add/Remove 1/1/100/100 Particles
     Mouse: Attract/Repel Particles
@@ -53,10 +54,23 @@ struct Cli {
     /// If set, the Particle count will not be drawn
     #[arg(long)]
     no_particle_count: bool,
+
+    /// If set, the screen border collisions label will not be drawn
+    #[arg(long)]
+    no_border: bool,
+
+    /// If set, the attract/repel label will not be drawn
+    #[arg(long)]
+    no_attract: bool,
+
+    /// If set, no labels will be drawn.
+    /// Equivalent to setting all the no_* flags
+    #[arg(long)]
+    no_labels: bool,
 }
 
 fn main() {
-    let args = Cli::parse();
+    let mut args = Cli::parse();
 
     let mut particle_count = if let Some(count) = args.particles_num {
         count
@@ -82,12 +96,19 @@ fn main() {
         20.0
     };
 
+    if args.no_labels {
+        args.no_fps = true;
+        args.no_particle_count = true;
+        args.no_border = true;
+        args.no_attract = true;
+    }
+
     let mut width = if let Some(w) = args.width { w } else { 800 };
     let mut height = if let Some(h) = args.height { h } else { 800 };
     unsafe {
         raylib::SetRandomSeed(69);
         // set window to resizable
-        raylib::SetWindowState(2);
+        raylib::SetWindowState(4);
 
         let mut particles: Vec<particle::Particle> = (0..particle_count)
             .map(|_| particle::Particle::new(width, height))
@@ -96,7 +117,8 @@ fn main() {
         let mut attract = true;
         let mut border = true;
 
-        raylib::InitWindow(width, height, "Particles".as_bytes().as_ptr() as *const i8);
+        let window_title = CString::new("Particles").unwrap();
+        raylib::InitWindow(width, height, window_title.as_ptr());
         raylib::SetTargetFPS(60);
 
         while !raylib::WindowShouldClose() {
@@ -109,7 +131,9 @@ fn main() {
                     .collect();
             }
 
-            if raylib::IsKeyPressed(raylib::KeyboardKey::KeySpace as i32) {
+            if raylib::IsKeyPressed(raylib::KeyboardKey::KeySpace as i32)
+                || raylib::IsMouseButtonPressed(0)
+            {
                 attract = !attract;
             }
 
@@ -178,6 +202,40 @@ fn main() {
                     text_ptr,
                     10,
                     30,
+                    20,
+                    raylib::Color {
+                        r: 255,
+                        g: 255,
+                        b: 255,
+                        a: 255,
+                    },
+                );
+            }
+
+            if !args.no_border {
+                let text = CString::new(format!("Border Collisions: {}", border)).unwrap();
+                let text_ptr = text.as_ptr();
+                raylib::DrawText(
+                    text_ptr,
+                    10,
+                    50,
+                    20,
+                    raylib::Color {
+                        r: 255,
+                        g: 255,
+                        b: 255,
+                        a: 255,
+                    },
+                );
+            }
+
+            if !args.no_attract {
+                let text = CString::new(format!("Attract: {}", attract)).unwrap();
+                let text_ptr = text.as_ptr();
+                raylib::DrawText(
+                    text_ptr,
+                    10,
+                    70,
                     20,
                     raylib::Color {
                         r: 255,
