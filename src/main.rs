@@ -7,7 +7,7 @@ use std::ffi::CString;
 
 #[derive(Parser)]
 #[clap(
-    version = "1.0",
+    version = "1.1",
     author = "Lucas Linhares",
     about = r#"Raylib Particle Attraction/Repulsion
 Keybindings:
