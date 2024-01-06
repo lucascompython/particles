@@ -12,6 +12,11 @@ Keybindings:
 
 More options with ./particles --help
 
+
+showcase.mp4  
+showcase_multiplier10.mp4
+
+
 ## Compilation
 
 Install raylib on your system, then adjust the [build.rs](/build.rs) file to point to the raylib library.  
