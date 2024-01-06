@@ -14,14 +14,13 @@ More options with ./particles --help
 
 
 
+![Showcase](/showcase.mov)
+
+
 <video width="320" height="240" controls>
-  <source src="https://raw.githubusercontent.com/lucascompython/particles/main/showcase.mp4" type="video/mp4">
+  <source src="/showcase.mov" type="video/mp4">
 </video>
-
-test
-
-# Showcase with 10x multiplier
-https://raw.githubusercontent.com/lucascompython/particles/main/showcase_multiplier10.mp4
+[Showcase With 10x multiplier](https://raw.githubusercontent.com/lucascompython/particles/main/showcase_multiplier10.mp4)
 
 
 
