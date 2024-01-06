@@ -13,17 +13,6 @@ Keybindings:
 More options with ./particles --help
 
 
-
-![Showcase](/showcase.mov)
-
-
-<video width="320" height="240" controls>
-  <source src="/showcase.mov" type="video/mp4">
-</video>
-[Showcase With 10x multiplier](https://raw.githubusercontent.com/lucascompython/particles/main/showcase_multiplier10.mp4)
-
-
-
 ## Compilation
 
 Install raylib on your system, then adjust the [build.rs](/build.rs) file to point to the raylib library.  
