@@ -13,8 +13,8 @@ Keybindings:
 More options with ./particles --help
 
 
-showcase.mp4  
-showcase_multiplier10.mp4
+https://raw.github.com/lucascompython/particles/main/showcase.mp4
+https://raw.github.com/lucascompython/particles/main/showcase_multiplier10.mp4
 
 
 ## Compilation
