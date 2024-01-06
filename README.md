@@ -10,6 +10,8 @@ Keybindings:
 - `Arrow Keys (Up/Down/Left/Right)`: Add/Remove 1/1/100/100 particles
 - `ESC`: quit  
 
+More options with ./particles --help
+
 ## Compilation
 
 Install raylib on your system, then adjust the [build.rs](/build.rs) file to point to the raylib library.  
