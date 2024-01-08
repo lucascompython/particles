@@ -105,6 +105,7 @@ fn main() {
         args.no_particle_count = true;
         args.no_border = true;
         args.no_attract = true;
+        args.no_multipler = true;
     }
 
     let mut width = if let Some(w) = args.width { w } else { 800 };
