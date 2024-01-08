@@ -7,7 +7,7 @@ use std::ffi::CString;
 
 #[derive(Parser)]
 #[clap(
-    version = "1.1",
+    version = "1.2",
     author = "Lucas Linhares",
     about = r#"Raylib Particle Attraction/Repulsion
 Keybindings:
@@ -15,7 +15,7 @@ Keybindings:
     Space/M1 Click: Toggle Attraction/Repulsion
     B: Toggle Screen Border Collisions
     Arrow Keys (Up/Down/Left/Right): Add/Remove 1/1/100/100 Particles
-    Mouse: Attract/Repel Particles
+    J/K: Decrease/Increase Multiplier
     ESC: Quit"#
 )]
 struct Cli {
@@ -63,6 +63,10 @@ struct Cli {
     #[arg(long)]
     no_attract: bool,
 
+    /// If set, the multiplier label will not be drawn
+    #[arg(long)]
+    no_multipler: bool,
+
     /// If set, no labels will be drawn.
     /// Equivalent to setting all the no_* flags
     #[arg(long)]
@@ -78,7 +82,7 @@ fn main() {
         100_000
     };
 
-    let multiplier = if let Some(mult) = args.multiplier {
+    let mut multiplier = if let Some(mult) = args.multiplier {
         mult
     } else {
         1.0
@@ -139,6 +143,14 @@ fn main() {
 
             if raylib::IsKeyPressed(raylib::KeyboardKey::KeyB as i32) {
                 border = !border;
+            }
+
+            if raylib::IsKeyDown(raylib::KeyboardKey::KeyK as i32) {
+                multiplier += 0.1
+            } else if raylib::IsKeyDown(raylib::KeyboardKey::KeyJ as i32) {
+                if multiplier >= 0.0 {
+                    multiplier -= 0.1;
+                }
             }
 
             if raylib::IsKeyDown(raylib::KeyboardKey::KeyUp as i32) {
@@ -236,6 +248,23 @@ fn main() {
                     text_ptr,
                     10,
                     70,
+                    20,
+                    raylib::Color {
+                        r: 255,
+                        g: 255,
+                        b: 255,
+                        a: 255,
+                    },
+                );
+            }
+
+            if !args.no_multipler {
+                let text = CString::new(format!("Multiplier: {:.01}", multiplier)).unwrap();
+                let text_ptr = text.as_ptr();
+                raylib::DrawText(
+                    text_ptr,
+                    10,
+                    90,
                     20,
                     raylib::Color {
                         r: 255,

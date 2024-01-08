@@ -46,4 +46,6 @@ pub enum KeyboardKey {
     KeyDown = 264,  // Key: Down
     KeyLeft = 263,  // Key: Left
     KeyRight = 262, // Key: Right
+    KeyK = 75,      // Key: K | k
+    KeyJ = 74,      // Key: J | j
 }

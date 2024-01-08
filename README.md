@@ -8,10 +8,10 @@ Keybindings:
 - `SPACE/M1 Click`: toggle the mouse attraction/repulsion
 - `B`: toggle the screen border collision
 - `Arrow Keys (Up/Down/Left/Right)`: Add/Remove 1/1/100/100 particles
+- `J/K`: decrease/increase the multipler
 - `ESC`: quit  
 
 More options with ./particles --help
-
 
 ## Compilation
 
