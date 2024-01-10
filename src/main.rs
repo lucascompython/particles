@@ -7,7 +7,7 @@ use std::ffi::CString;
 
 #[derive(Parser)]
 #[clap(
-    version = "1.3.1",
+    version = "1.3.2",
     author = "Lucas Linhares",
     about = r#"Raylib Particle Attraction/Repulsion
 Keybindings:
@@ -243,7 +243,11 @@ fn main() {
             }
 
             if !args.no_border {
-                let text = CString::new(format!("Border Collisions: {}", border)).unwrap();
+                let text = CString::new(format!(
+                    "Borders: {}",
+                    if border { "Collide" } else { "Wrap" }
+                ))
+                .unwrap();
                 let text_ptr = text.as_ptr();
                 raylib::DrawText(
                     text_ptr,
@@ -260,7 +264,11 @@ fn main() {
             }
 
             if !args.no_attract {
-                let text = CString::new(format!("Attract: {}", attract)).unwrap();
+                let text = CString::new(format!(
+                    "Mode: {}",
+                    if attract { "Attract" } else { "Repel" }
+                ))
+                .unwrap();
                 let text_ptr = text.as_ptr();
                 raylib::DrawText(
                     text_ptr,
