@@ -16,6 +16,7 @@ Keybindings:
     B: Toggle Screen Border Collisions
     Arrow Keys (Up/Down/Left/Right): Add/Remove 1/1/100/100 Particles
     J/K: Decrease/Increase Multiplier
+    -/+: Decrease/Increase Ball Size
     ESC: Quit"#
 )]
 struct Cli {
@@ -67,6 +68,10 @@ struct Cli {
     #[arg(long)]
     no_multipler: bool,
 
+    /// If set, the ball_size label will not be drawn
+    #[arg(long)]
+    no_ball_size_label: bool,
+
     /// If set, no labels will be drawn.
     /// Equivalent to setting all the no_* flags
     #[arg(long)]
@@ -94,10 +99,14 @@ fn main() {
         0.99
     };
 
-    let ball_size = if let Some(ball_size) = args.ball_size {
+    let mut ball_size = if let Some(ball_size) = args.ball_size {
         ball_size
     } else {
-        20.0
+        if args.balls {
+            20.0
+        } else {
+            1.0
+        }
     };
 
     if args.no_labels {
@@ -106,6 +115,7 @@ fn main() {
         args.no_border = true;
         args.no_attract = true;
         args.no_multipler = true;
+        args.no_ball_size_label = true;
     }
 
     let mut width = if let Some(w) = args.width { w } else { 800 };
@@ -130,31 +140,24 @@ fn main() {
             width = raylib::GetScreenWidth();
             height = raylib::GetScreenHeight();
 
+            // Maybe check if it possible to do this with a match statement :)
             if raylib::IsKeyPressed(raylib::KeyboardKey::KeyR as i32) {
                 particles = (0..particle_count)
                     .map(|_| particle::Particle::new(width, height))
                     .collect();
-            }
-
-            if raylib::IsKeyPressed(raylib::KeyboardKey::KeySpace as i32)
+            } else if raylib::IsKeyPressed(raylib::KeyboardKey::KeySpace as i32)
                 || raylib::IsMouseButtonPressed(0)
             {
                 attract = !attract;
-            }
-
-            if raylib::IsKeyPressed(raylib::KeyboardKey::KeyB as i32) {
+            } else if raylib::IsKeyPressed(raylib::KeyboardKey::KeyB as i32) {
                 border = !border;
-            }
-
-            if raylib::IsKeyDown(raylib::KeyboardKey::KeyK as i32) {
+            } else if raylib::IsKeyDown(raylib::KeyboardKey::KeyK as i32) {
                 multiplier += 0.1
             } else if raylib::IsKeyDown(raylib::KeyboardKey::KeyJ as i32) {
                 if multiplier >= 0.0 {
                     multiplier -= 0.1;
                 }
-            }
-
-            if raylib::IsKeyDown(raylib::KeyboardKey::KeyUp as i32) {
+            } else if raylib::IsKeyDown(raylib::KeyboardKey::KeyUp as i32) {
                 particles.push(particle::Particle::new(width, height));
 
                 particle_count += 1;
@@ -176,6 +179,20 @@ fn main() {
                     particles.push(particle::Particle::new(width, height));
                 }
                 particle_count += 100;
+            } else if raylib::IsKeyDown(raylib::KeyboardKey::KeyPlus as i32)
+                || raylib::IsKeyDown(raylib::KeyboardKey::KeyAdd as i32)
+            {
+                ball_size += 1.0;
+                args.balls = true;
+            } else if raylib::IsKeyDown(raylib::KeyboardKey::KeyMinus as i32)
+                || raylib::IsKeyDown(raylib::KeyboardKey::KeySubtract as i32)
+            {
+                if ball_size >= 2.0 {
+                    args.balls = true;
+                    ball_size -= 1.0;
+                } else {
+                    args.balls = false;
+                }
             }
 
             let mouse_position = raylib::GetMousePosition();
@@ -266,6 +283,23 @@ fn main() {
                     text_ptr,
                     10,
                     90,
+                    20,
+                    raylib::Color {
+                        r: 255,
+                        g: 255,
+                        b: 255,
+                        a: 255,
+                    },
+                );
+            }
+
+            if !args.no_ball_size_label {
+                let text = CString::new(format!("Ball Size: {:.01}", ball_size)).unwrap();
+                let text_ptr = text.as_ptr();
+                raylib::DrawText(
+                    text_ptr,
+                    10,
+                    110,
                     20,
                     raylib::Color {
                         r: 255,

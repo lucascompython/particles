@@ -39,13 +39,17 @@ pub struct Vector2 {
     pub y: f32,
 }
 pub enum KeyboardKey {
-    KeyB = 66,      // Key: B | b
-    KeyR = 82,      // Key: R | r
-    KeySpace = 32,  // Key: Space
-    KeyUp = 265,    // Key: Up
-    KeyDown = 264,  // Key: Down
-    KeyLeft = 263,  // Key: Left
-    KeyRight = 262, // Key: Right
-    KeyK = 75,      // Key: K | k
-    KeyJ = 74,      // Key: J | j
+    KeyB = 66,         // Key: B | b
+    KeyR = 82,         // Key: R | r
+    KeySpace = 32,     // Key: Space
+    KeyUp = 265,       // Key: Up
+    KeyDown = 264,     // Key: Down
+    KeyLeft = 263,     // Key: Left
+    KeyRight = 262,    // Key: Right
+    KeyK = 75,         // Key: K | k
+    KeyJ = 74,         // Key: J | j
+    KeyPlus = 44,      // Key: + (Plus)
+    KeyMinus = 45,     // Key: - (Minus)
+    KeySubtract = 333, // Key: - (Minus)
+    KeyAdd = 334,      // Key: + (Plus)
 }
