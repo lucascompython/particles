@@ -7,7 +7,7 @@ use std::ffi::CString;
 
 #[derive(Parser)]
 #[clap(
-    version = "1.3",
+    version = "1.3.1",
     author = "Lucas Linhares",
     about = r#"Raylib Particle Attraction/Repulsion
 Keybindings:
@@ -154,7 +154,7 @@ fn main() {
             } else if raylib::IsKeyDown(raylib::KeyboardKey::KeyK as i32) {
                 multiplier += 0.1
             } else if raylib::IsKeyDown(raylib::KeyboardKey::KeyJ as i32) {
-                if multiplier >= 0.0 {
+                if multiplier >= 0.1 {
                     multiplier -= 0.1;
                 }
             } else if raylib::IsKeyDown(raylib::KeyboardKey::KeyUp as i32) {
