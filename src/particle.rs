@@ -10,7 +10,7 @@ pub struct Particle {
 impl Particle {
     pub fn new(width: i32, height: i32) -> Self {
         unsafe {
-            let particle = Self {
+            Self {
                 position: raylib::Vector2 {
                     x: raylib::GetRandomValue(0, width - 1) as f32,
                     y: raylib::GetRandomValue(0, height - 1) as f32,
@@ -25,16 +25,15 @@ impl Particle {
                     b: 0,
                     a: 100,
                 },
-            };
+            }
 
-            particle
         }
     }
 
     pub fn get_distance_to(&self, other: Vector2) -> f32 {
         let x = self.position.x - other.x;
         let y = self.position.y - other.y;
-        let distance = ((x * x) + (y * y)) as f32;
+        let distance = (x * x) + (y * y);
         distance.sqrt()
     }
 

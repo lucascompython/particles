@@ -1,4 +1,4 @@
-#![windows_subsystem = "windows"]
+// #![windows_subsystem = "windows"]
 mod particle;
 mod raylib;
 
@@ -7,7 +7,7 @@ use std::ffi::CString;
 
 #[derive(Parser)]
 #[clap(
-    version = "1.3.2",
+    version,
     author = "Lucas Linhares",
     about = r#"Raylib Particle Attraction/Repulsion
 Keybindings:
@@ -101,13 +101,11 @@ fn main() {
 
     let mut ball_size = if let Some(ball_size) = args.ball_size {
         ball_size
-    } else {
-        if args.balls {
+    } else if args.balls {
             20.0
         } else {
             1.0
-        }
-    };
+        };
 
     if args.no_labels {
         args.no_fps = true;
