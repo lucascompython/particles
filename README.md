@@ -14,6 +14,11 @@ Keybindings:
 
 More options with ./particles --help
 
+
+## Demo
+
+https://github.com/lucascompython/particles/assets/77930083/ee3eb461-5a3a-4dbc-801a-0812c62102f9
+
 ## Compilation
 
 Install raylib on your system, then adjust the [build.rs](/build.rs) file to point to the raylib library.  
