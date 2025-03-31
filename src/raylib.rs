@@ -1,5 +1,5 @@
 // raylib functions from the header
-extern "C" {
+unsafe extern "C" {
     pub fn InitWindow(width: i32, height: i32, title: *const i8);
     pub fn CloseWindow();
     pub fn BeginDrawing();
