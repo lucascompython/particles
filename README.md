@@ -1,3 +1,7 @@
+# Rewrites: [3D Version](https://github.com/lucascompython/particle-simulation-3d/) - [2D Version](https://github.com/lucascompython/particle-simulation-2d/)
+
+
+
 # Particle Attraction/Repulsion
 
 This is a satisfying "simulation" of particles that attract and repel to the mouse. It's not really a simulation, but it looks cool.  
